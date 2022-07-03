@@ -1,0 +1,26 @@
+HKCR
+{
+	Factory.Service.Manager.1 = s 'FactoryServiceManager class'
+	{
+		CLSID = s '{39f296b9-4714-4a9b-a0cf-8188df465ce1}'
+	}
+	Factory.Service.Manager = s 'FactoryServiceManager class'
+	{		
+		CurVer = s 'Factory.Service.Manager.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {39f296b9-4714-4a9b-a0cf-8188df465ce1} = s 'FactoryServiceManager class'
+		{
+			ProgID = s 'Factory.Service.Manager.1'
+			VersionIndependentProgID = s 'Factory.Service.Manager'
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			TypeLib = s '{a871ac02-f7c1-4a9e-b060-95645d1d5826}'
+			Version = s '1.0'
+		}
+	}
+}
