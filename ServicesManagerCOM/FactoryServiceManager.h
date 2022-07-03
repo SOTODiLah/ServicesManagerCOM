@@ -15,6 +15,10 @@
 
 using namespace ATL;
 
+#include "ServiceHandle.h"
+#include <vector>
+#include <queue>
+#include <functional>
 
 // CFactoryServiceManager
 
@@ -51,9 +55,12 @@ END_COM_MAP()
 
 public:
 	STDMETHOD(GetAllServiceManagers(SAFEARRAY**));
-	STDMETHOD(GetServiceManagersByType(SAFEARRAY**));
-	STDMETHOD(GetServiceManagersByState(SAFEARRAY**));
+	STDMETHOD(GetServiceManagersByType(EServiceType, SAFEARRAY**));
+	STDMETHOD(GetServiceManagersByStatus(EServiceStatus, SAFEARRAY**));
 
+private:
+	HRESULT SelectServices(std::queue<BSTR>&, std::function<bool(LPENUM_SERVICE_STATUS_PROCESS)> = nullptr);
+	HRESULT CreateArray(std::queue<BSTR>&, SAFEARRAY**);
 
 };
 

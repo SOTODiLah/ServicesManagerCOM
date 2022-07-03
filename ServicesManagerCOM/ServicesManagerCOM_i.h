@@ -421,9 +421,11 @@ EXTERN_C const IID IID_IFactoryServiceManager;
             /* [retval][out] */ SAFEARRAY * *pReturn) = 0;
         
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetServiceManagersByType( 
+            /* [in] */ EServiceType __MIDL__IFactoryServiceManager0000,
             /* [retval][out] */ SAFEARRAY * *pReturn) = 0;
         
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetServiceManagersByState( 
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetServiceManagersByStatus( 
+            /* [in] */ EServiceStatus __MIDL__IFactoryServiceManager0001,
             /* [retval][out] */ SAFEARRAY * *pReturn) = 0;
         
     };
@@ -490,10 +492,12 @@ EXTERN_C const IID IID_IFactoryServiceManager;
         
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *GetServiceManagersByType )( 
             IFactoryServiceManager * This,
+            /* [in] */ EServiceType __MIDL__IFactoryServiceManager0000,
             /* [retval][out] */ SAFEARRAY * *pReturn);
         
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *GetServiceManagersByState )( 
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *GetServiceManagersByStatus )( 
             IFactoryServiceManager * This,
+            /* [in] */ EServiceStatus __MIDL__IFactoryServiceManager0001,
             /* [retval][out] */ SAFEARRAY * *pReturn);
         
         END_INTERFACE
@@ -535,11 +539,11 @@ EXTERN_C const IID IID_IFactoryServiceManager;
 #define IFactoryServiceManager_GetAllServiceManagers(This,pReturn)	\
     ( (This)->lpVtbl -> GetAllServiceManagers(This,pReturn) ) 
 
-#define IFactoryServiceManager_GetServiceManagersByType(This,pReturn)	\
-    ( (This)->lpVtbl -> GetServiceManagersByType(This,pReturn) ) 
+#define IFactoryServiceManager_GetServiceManagersByType(This,__MIDL__IFactoryServiceManager0000,pReturn)	\
+    ( (This)->lpVtbl -> GetServiceManagersByType(This,__MIDL__IFactoryServiceManager0000,pReturn) ) 
 
-#define IFactoryServiceManager_GetServiceManagersByState(This,pReturn)	\
-    ( (This)->lpVtbl -> GetServiceManagersByState(This,pReturn) ) 
+#define IFactoryServiceManager_GetServiceManagersByStatus(This,__MIDL__IFactoryServiceManager0001,pReturn)	\
+    ( (This)->lpVtbl -> GetServiceManagersByStatus(This,__MIDL__IFactoryServiceManager0001,pReturn) ) 
 
 #endif /* COBJMACROS */
 

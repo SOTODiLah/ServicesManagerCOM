@@ -98,8 +98,8 @@ library ServicesManagerCOMLib
 	interface IFactoryServiceManager : IDispatch
 	{
 		[id(1), helpstring("Returns an array of service managers")] HRESULT GetAllServiceManagers([out, retval] SAFEARRAY(IServiceManager*)* pReturn);
-		[id(2), helpstring("Returns an array of defined type service managers")] HRESULT GetServiceManagersByType([out, retval] SAFEARRAY(IServiceManager*)* pReturn);
-		[id(3), helpstring("Returns an array of defined state service managers")] HRESULT GetServiceManagersByState([out, retval] SAFEARRAY(IServiceManager*)* pReturn);
+		[id(2), helpstring("Returns an array of defined type service managers")] HRESULT GetServiceManagersByType([in] EServiceType, [out, retval] SAFEARRAY(IServiceManager*)* pReturn);
+		[id(3), helpstring("Returns an array of defined status service managers")] HRESULT GetServiceManagersByStatus([in] EServiceStatus, [out, retval] SAFEARRAY(IServiceManager*)* pReturn);
 	};
 
 	[
