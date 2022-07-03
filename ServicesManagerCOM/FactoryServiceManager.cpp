@@ -28,9 +28,9 @@ STDMETHODIMP CFactoryServiceManager::GetServiceManagersByType(EServiceType eType
 		return E_POINTER;
 
 	std::queue<BSTR> qServices;
-	std::function<bool(LPENUM_SERVICE_STATUS_PROCESS)> fSelect = [need = (DWORD)eType](LPENUM_SERVICE_STATUS_PROCESS essp) -> bool
+	std::function<bool(ENUM_SERVICE_STATUS_PROCESSW&)> fSelect = [need = (DWORD)eType](ENUM_SERVICE_STATUS_PROCESSW& essp) -> bool
 	{
-		return essp->ServiceStatusProcess.dwServiceType == need;
+		return essp.ServiceStatusProcess.dwServiceType == need;
 	};
 
 	HRESULT hr = SelectServices(qServices, fSelect);
@@ -50,9 +50,9 @@ STDMETHODIMP CFactoryServiceManager::GetServiceManagersByStatus(EServiceStatus e
 		return E_POINTER;
 
 	std::queue<BSTR> qServices;
-	std::function<bool(LPENUM_SERVICE_STATUS_PROCESS)> fSelect = [need = (DWORD)eStatus](LPENUM_SERVICE_STATUS_PROCESS essp) -> bool
+	std::function<bool(ENUM_SERVICE_STATUS_PROCESSW)> fSelect = [need = (DWORD)eStatus](ENUM_SERVICE_STATUS_PROCESSW essp) -> bool
 	{
-		return essp->ServiceStatusProcess.dwCurrentState == need;
+		return essp.ServiceStatusProcess.dwCurrentState == need;
 	};
 
 	HRESULT hr = SelectServices(qServices, fSelect);
@@ -66,7 +66,7 @@ STDMETHODIMP CFactoryServiceManager::GetServiceManagersByStatus(EServiceStatus e
 	return S_OK;
 }
 
-HRESULT CFactoryServiceManager::SelectServices(std::queue<BSTR>& qServices, std::function<bool(LPENUM_SERVICE_STATUS_PROCESS)> fSelect)
+HRESULT CFactoryServiceManager::SelectServices(std::queue<BSTR>& qServices, std::function<bool(ENUM_SERVICE_STATUS_PROCESSW&)> fSelect)
 {
 	CServiceHandle scHandle = ::OpenSCManager(nullptr, nullptr, SC_MANAGER_ENUMERATE_SERVICE);
 
@@ -97,9 +97,9 @@ HRESULT CFactoryServiceManager::SelectServices(std::queue<BSTR>& qServices, std:
 					for (auto i = DWORD{ 0 }; i < dwServicesReturnedCount; ++i)
 					{
 						if (fSelect != nullptr)
-							if (!fSelect(essp))
+							if (!fSelect(essp[i]))
 								continue;
-						qServices.push(SysAllocString(essp->lpServiceName));
+						qServices.push(SysAllocString(essp[i].lpServiceName));
 					}
 				}
 				else break;
@@ -127,7 +127,7 @@ HRESULT CFactoryServiceManager::CreateArray(std::queue<BSTR>& qServices, SAFEARR
 	if (!psa)
 		return E_FAIL;
 
-	HRESULT hr;
+	HRESULT hr = S_OK;
 	CComPtr<IServiceManager> ptrContent;
 	for (LONG i = 0; i < cElements; i++)
 	{

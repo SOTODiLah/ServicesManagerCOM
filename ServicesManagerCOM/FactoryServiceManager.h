@@ -59,7 +59,7 @@ public:
 	STDMETHOD(GetServiceManagersByStatus(EServiceStatus, SAFEARRAY**));
 
 private:
-	HRESULT SelectServices(std::queue<BSTR>&, std::function<bool(LPENUM_SERVICE_STATUS_PROCESS)> = nullptr);
+	HRESULT SelectServices(std::queue<BSTR>&, std::function<bool(ENUM_SERVICE_STATUS_PROCESSW&)> = nullptr);
 	HRESULT CreateArray(std::queue<BSTR>&, SAFEARRAY**);
 
 };
