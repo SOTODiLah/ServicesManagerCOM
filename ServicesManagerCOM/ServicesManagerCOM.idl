@@ -78,7 +78,6 @@ library ServicesManagerCOMLib
 		[id(12), helpstring("Attempt to stop the service")] HRESULT Stop([out, retval] boolean* bResult);
 		[id(13), helpstring("Attempt to pause the service")] HRESULT Pause([out, retval] boolean* bResult);
 		[id(14), helpstring("Attempt to continue the service")] HRESULT Continue([out, retval] boolean* bResult);
-		[id(15), helpstring("Attempt to restart the service")] HRESULT Restart([out, retval] boolean* bResult);
 	};
 
 	[

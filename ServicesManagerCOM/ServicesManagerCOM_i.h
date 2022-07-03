@@ -190,9 +190,6 @@ EXTERN_C const IID IID_IServiceManager;
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE Continue( 
             /* [retval][out] */ boolean *bResult) = 0;
         
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE Restart( 
-            /* [retval][out] */ boolean *bResult) = 0;
-        
     };
     
     
@@ -308,10 +305,6 @@ EXTERN_C const IID IID_IServiceManager;
             IServiceManager * This,
             /* [retval][out] */ boolean *bResult);
         
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *Restart )( 
-            IServiceManager * This,
-            /* [retval][out] */ boolean *bResult);
-        
         END_INTERFACE
     } IServiceManagerVtbl;
 
@@ -389,9 +382,6 @@ EXTERN_C const IID IID_IServiceManager;
 
 #define IServiceManager_Continue(This,bResult)	\
     ( (This)->lpVtbl -> Continue(This,bResult) ) 
-
-#define IServiceManager_Restart(This,bResult)	\
-    ( (This)->lpVtbl -> Restart(This,bResult) ) 
 
 #endif /* COBJMACROS */
 

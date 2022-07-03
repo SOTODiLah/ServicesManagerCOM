@@ -72,16 +72,19 @@ public:
 	 STDMETHOD(Stop(boolean*));
 	 STDMETHOD(Pause(boolean*));
 	 STDMETHOD(Continue(boolean*));
-	 STDMETHOD(Restart(boolean*));
 private:
+	HRESULT ChangeStatus(DWORD const, DWORD const , boolean*);
 	HRESULT UpdateStatus();
 	HRESULT UpdateConfig();
 	HRESULT UpdateAdditionalConfig();
-	HRESULT CheckInit(void* ptr);
-	std::chrono::milliseconds GetWaitTime(DWORD const waitHint);
+	std::chrono::milliseconds GetWaitTime();
+	inline HRESULT CheckInit(void* ptr) const;
+	inline SC_HANDLE OpenHandle(DWORD const) const;
+	inline void IsAppRunningAsAdminMode();
 
 private:
 	bool m_bInit{ false };
+	BOOL m_bRunAsAdmin{ FALSE };
 	ServiceString m_wstrName{ L"" };
 	ServiceString m_wstrFullName{ L"" };
 	ServiceString m_wstrDescription{ L"" };

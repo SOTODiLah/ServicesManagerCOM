@@ -14,6 +14,8 @@ STDMETHODIMP CServiceManager::Init(BSTR bstrName)
 	if (m_wstrName.empty())
 		return E_FAIL;
 
+	IsAppRunningAsAdminMode();
+
 	m_scHandle = ::OpenSCManager(nullptr, nullptr, SC_MANAGER_CONNECT);
 
 	if (!m_scHandle)
@@ -48,81 +50,104 @@ STDMETHODIMP CServiceManager::Init(BSTR bstrName)
 STDMETHODIMP CServiceManager::GetName(BSTR* pResult) 
 {
 	HRESULT hr = CheckInit((void*)pResult);
-	*pResult = SysAllocString(m_wstrName.c_str());
-	return hr;
+	if (SUCCEEDED(hr))
+		*pResult = SysAllocString(m_wstrName.c_str());
+	return S_OK;
 }
 
 STDMETHODIMP CServiceManager::GetFullName(BSTR* pResult)
 {
 	HRESULT hr = CheckInit((void*)pResult);
-	*pResult = SysAllocString(m_wstrFullName.c_str());
-	return hr;
+	if (SUCCEEDED(hr))
+		*pResult = SysAllocString(m_wstrFullName.c_str());
+	return S_OK;
 }
 
 STDMETHODIMP CServiceManager::GetDescription(BSTR* pResult)
 {
 	HRESULT hr = CheckInit((void*)pResult);
-	*pResult = SysAllocString(m_wstrDescription.c_str());
+	if (SUCCEEDED(hr))
+		*pResult = SysAllocString(m_wstrDescription.c_str());
 	return hr;
 }
 
 STDMETHODIMP CServiceManager::GetStatus(EServiceStatus* pResult)
 {
 	HRESULT hr = CheckInit((void*)pResult);
-	*pResult = m_eStatus;
+	if (SUCCEEDED(hr))
+		*pResult = m_eStatus;
 	return hr;
 }
 
 STDMETHODIMP CServiceManager::GetType(EServiceType* pResult)
 {
 	HRESULT hr = CheckInit((void*)pResult);
-	*pResult = m_eType;
+	if (SUCCEEDED(hr))
+		*pResult = m_eType;
 	return hr;
 }
 
 STDMETHODIMP CServiceManager::CanPauseContinue(boolean* pResult)
 {
 	HRESULT hr = CheckInit((void**)pResult);
-	*pResult = m_bPauseContinue;
+	if (SUCCEEDED(hr))
+		*pResult = m_bPauseContinue;
 	return hr;
 }
 
 STDMETHODIMP CServiceManager::CanStop(boolean* pResult)
 {
 	HRESULT hr = CheckInit((void*)pResult);
-	*pResult = m_bStop;
+	if (SUCCEEDED(hr))
+		*pResult = m_bStop;
 	return hr;
 }
 
 STDMETHODIMP CServiceManager::Start(boolean* pResult)
 {
-	HRESULT hr = CheckInit((void*)pResult);
+	HRESULT hr = CheckInit(pResult);
+	if (FAILED(hr))
+		return hr;
 
-	return hr;
+	*pResult = 0;
+	if (!m_bRunAsAdmin)
+		return S_FALSE;
+	
+	CServiceHandle srvHandle = OpenHandle(SERVICE_START);
+
+	if (!srvHandle)
+		return E_FAIL;
+
+	auto res = ::StartService(srvHandle, 0, nullptr);
+
+	if (!res)
+		return S_FALSE;
+
+	hr = UpdateStatus();
+	*pResult = 1;
+	return S_OK;
 }
 
 STDMETHODIMP CServiceManager::Stop(boolean* pResult)
 {
-	HRESULT hr = CheckInit((void*)pResult);
-	return hr;
+	if (!m_bRunAsAdmin || !m_bStop)
+		return S_FALSE;
+
+	return ChangeStatus(SERVICE_STOP, SERVICE_CONTROL_STOP, pResult);
 }
 
 STDMETHODIMP CServiceManager::Pause(boolean* pResult)
 {
-	HRESULT hr = CheckInit((void*)pResult);
-	return hr;
+	if (!m_bRunAsAdmin || !m_bPauseContinue)
+		return S_FALSE;
+	return ChangeStatus(SERVICE_PAUSE_CONTINUE, SERVICE_CONTROL_PAUSE, pResult);
 }
 
 STDMETHODIMP CServiceManager::Continue(boolean* pResult)
 {
-	HRESULT hr = CheckInit((void*)pResult);
-	return hr;
-}
-
-STDMETHODIMP CServiceManager::Restart(boolean* pResult)
-{
-	HRESULT hr = CheckInit((void*)pResult);
-	return hr;
+	if (!m_bRunAsAdmin || !m_bPauseContinue)
+		return S_FALSE;
+	return ChangeStatus(SERVICE_PAUSE_CONTINUE, SERVICE_CONTROL_CONTINUE, pResult);
 }
 
 STDMETHODIMP CServiceManager::WaitForStatus(EServiceStatus eStatus, ULONG ulTime, boolean* pResult)
@@ -137,7 +162,7 @@ STDMETHODIMP CServiceManager::WaitForStatus(EServiceStatus eStatus, ULONG ulTime
 		return hr;
 
 	auto startTime = std::chrono::high_resolution_clock::now();
-	auto waitTime = GetWaitTime(m_dwWaitHint);
+	auto waitTime = GetWaitTime();
 	std::chrono::milliseconds timeout{ ulTime };
 
 	while (eStatus != m_eStatus)
@@ -177,14 +202,33 @@ STDMETHODIMP CServiceManager::Refresh()
 	return S_OK;
 }
 
-HRESULT CServiceManager::UpdateStatus()
+HRESULT CServiceManager::ChangeStatus(DWORD const dwDesiredAccess, DWORD const controlCode, boolean* pResult)
 {
-	if (!m_scHandle)
-		return E_FAIL;
-	if (m_wstrName.empty())
+	HRESULT hr = CheckInit((void*)pResult);
+	if (FAILED(hr))
+		return hr;
+	*pResult = 0;
+
+	CServiceHandle srvHandle = OpenHandle(dwDesiredAccess);
+	if (!srvHandle)
 		return E_FAIL;
 
-	CServiceHandle srvHandle = ::OpenService(m_scHandle, m_wstrName.c_str(), SERVICE_QUERY_STATUS);
+	SERVICE_STATUS_PROCESS ssp{ 0 };
+	if (!::ControlService(srvHandle, controlCode, reinterpret_cast<LPSERVICE_STATUS>(&ssp)))
+		return S_FALSE;
+
+	m_eStatus = (EServiceStatus)ssp.dwCurrentState;
+	m_bPauseContinue = ssp.dwControlsAccepted & SERVICE_ACCEPT_PAUSE_CONTINUE;
+	m_bStop = ssp.dwControlsAccepted & SERVICE_ACCEPT_STOP;
+	m_dwWaitHint = ssp.dwWaitHint;
+
+	*pResult = 1;
+	return S_OK;
+}
+
+HRESULT CServiceManager::UpdateStatus()
+{
+	CServiceHandle srvHandle = OpenHandle(SERVICE_QUERY_STATUS);
 
 	if (!srvHandle)
 		return S_FALSE;
@@ -212,12 +256,7 @@ HRESULT CServiceManager::UpdateStatus()
 
 HRESULT CServiceManager::UpdateConfig()
 {
-	if (!m_scHandle)
-		return E_FAIL;
-	if (m_wstrName.empty())
-		return E_FAIL;
-
-	CServiceHandle srvHandle = ::OpenService(m_scHandle, m_wstrName.c_str(), SERVICE_QUERY_CONFIG);
+	CServiceHandle srvHandle = OpenHandle(SERVICE_QUERY_CONFIG);
 
 	if (!srvHandle)
 		return S_FALSE;
@@ -250,12 +289,7 @@ HRESULT CServiceManager::UpdateConfig()
 
 HRESULT CServiceManager::UpdateAdditionalConfig()
 {
-	if (!m_scHandle)
-		return E_FAIL;
-	if (m_wstrName.empty())
-		return E_FAIL;
-
-	CServiceHandle srvHandle = ::OpenService(m_scHandle, m_wstrName.c_str(), SERVICE_QUERY_CONFIG);
+	CServiceHandle srvHandle = OpenHandle(SERVICE_QUERY_CONFIG);
 
 	if (!srvHandle)
 		return S_FALSE;
@@ -285,18 +319,16 @@ HRESULT CServiceManager::UpdateAdditionalConfig()
 	return S_OK;
 }
 
-HRESULT CServiceManager::CheckInit(void* ptr)
+SC_HANDLE CServiceManager::OpenHandle(DWORD const dwDesiredAccess) const
 {
-	if (!ptr)
-		return E_POINTER;
-	if (!m_bInit)
-		return E_UNEXPECTED;
-	return S_OK;
+	if (!m_scHandle || m_wstrName.empty())
+		return nullptr;
+	return ::OpenService(m_scHandle, m_wstrName.c_str(), dwDesiredAccess);
 }
 
-std::chrono::milliseconds CServiceManager::GetWaitTime(DWORD const waitHint)
+std::chrono::milliseconds CServiceManager::GetWaitTime()
 {
-	auto waitTime = waitHint / 10;
+	auto waitTime = m_dwWaitHint / 10;
 
 	if (waitTime < 1000)
 		waitTime = 1000;
@@ -305,3 +337,31 @@ std::chrono::milliseconds CServiceManager::GetWaitTime(DWORD const waitHint)
 
 	return std::chrono::milliseconds(waitTime);
 }
+
+void CServiceManager::IsAppRunningAsAdminMode()
+{
+	m_bRunAsAdmin = FALSE;
+	PSID pAdministratorsGroup = NULL;
+	SID_IDENTIFIER_AUTHORITY NtAuthority = SECURITY_NT_AUTHORITY;
+
+	if (AllocateAndInitializeSid(&NtAuthority, 2, SECURITY_BUILTIN_DOMAIN_RID, DOMAIN_ALIAS_RID_ADMINS, 0, 0, 0, 0, 0, 0, &pAdministratorsGroup))
+	{
+		CheckTokenMembership(NULL, pAdministratorsGroup, &m_bRunAsAdmin);
+	}
+
+	if (pAdministratorsGroup)
+	{
+		FreeSid(pAdministratorsGroup);
+		pAdministratorsGroup = NULL;
+	}
+}
+
+HRESULT CServiceManager::CheckInit(void* ptr) const
+{
+	if (!ptr)
+		return E_POINTER;
+	if (!m_bInit)
+		return E_UNEXPECTED;
+	return S_OK;
+}
+
