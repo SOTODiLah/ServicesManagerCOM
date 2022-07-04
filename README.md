@@ -3,7 +3,7 @@ C++ COM working with services and project C# Forms using this COM
 
 ## Project ServicesManagerCOM
 
-Проект ATL. Содержит два COM-object имеют двойной интерфейс, что позволяет использовать ранее и позднее связывание.
+Проект ATL. Содержит два COM-object имеют двойной интерфейс, что позволяет использовать ранее и позднее связывание ([пример использование в python](https://github.com/SOTODiLah/ServicesManagerCOM/blob/master/Example_PythonClientCOM.jpg)).
 
 * ServiceManager
 * FactoryServiceManagers 
