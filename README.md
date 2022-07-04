@@ -15,9 +15,15 @@ C++ COM working with services and project C# Forms using this COM
 Проект Windows Forms C#. Реализован базовый UI для демонстрации работы COM-object.<br>
 Используется ранее связывание. Описание интерфейсов в C# [InterfaceCOM.cs](https://github.com/SOTODiLah/ServicesManagerCOM/blob/master/Forms_COM/Forms_COM/InterfaceCOM.cs)
 
-## Подключение DLL
+## Использование COM DLL
 
-Подключение DLL осуществляется через командную строку.<br>
+Регистрация DLL осуществляется через командную строку или созданием файла *.reg*<br>
+
+### Региструем в реестре
 ```bash
 regsvr32 /i ServicesManagerCOM.dll
+````
+### Отменяем регистрацию
+```bash
+regsvr32 /u ServicesManagerCOM.dll
 ````
