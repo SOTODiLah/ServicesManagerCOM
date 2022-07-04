@@ -14,10 +14,7 @@ C++ COM working with services and project C# Forms using this COM
 
 Проект Windows Forms C#. Реализован базовый UI для демонстрации работы COM-object.
 
-Используется ранее связывание, [пример описания интерфейсов](https://github.com/SOTODiLah/ServicesManagerCOM/blob/master/Forms_COM/Forms_COM/InterfaceCOM.cs)
-```bash
-Forms_COM/Forms_COM/InterfaceCOM.cs
-````
+Используется ранее связывание. Описание интерфейсов в C# [InterfaceCOM.cs](https://github.com/SOTODiLah/ServicesManagerCOM/blob/master/Forms_COM/Forms_COM/InterfaceCOM.cs)
 
 ## Launch
 
