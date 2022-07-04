@@ -12,13 +12,12 @@ C++ COM working with services and project C# Forms using this COM
 
 ## Project Form_COM
 
-Проект Windows Forms C#. Реализован базовый UI для демонстрации работы COM-object.
-
+Проект Windows Forms C#. Реализован базовый UI для демонстрации работы COM-object.<br>
 Используется ранее связывание. Описание интерфейсов в C# [InterfaceCOM.cs](https://github.com/SOTODiLah/ServicesManagerCOM/blob/master/Forms_COM/Forms_COM/InterfaceCOM.cs)
 
-## Launch
+## Подключение DLL
 
-Запуск программы осуществляет через командную строку.<br>
+Подключение DLL осуществляется через командную строку.<br>
 ```bash
 Options:
   -h,--help                   Вывод этого справочного сообщения.
