@@ -12,6 +12,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ServicesManagerCOMPS", "Ser
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forms_COM", "Forms_COM\Forms_COM\Forms_COM.csproj", "{C447303E-0D6B-4133-9C70-D207AD0B9062}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BC45F545-046C-4055-BE2E-B40A25CB4953}"
+	ProjectSection(SolutionItems) = preProject
+		Releases\Forms_COM.exe = Releases\Forms_COM.exe
+		Releases\ServicesManagerCOM.dll = Releases\ServicesManagerCOM.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
