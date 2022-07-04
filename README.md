@@ -1,7 +1,7 @@
 # ServicesManagerCOM
 C++ COM working with services and project C# Forms using this COM
 
-## ServicesManagerCOM
+## Project ServicesManagerCOM
 
 Проект ATL. Созданы два COM-object (СServiceManager и CFactoryServiceManagers), имеют двойной интерфейс, что позволяет использовать ранее и позднее связывание.
 *Пример
