@@ -135,7 +135,7 @@ HRESULT CFactoryServiceManager::CreateArray(std::queue<BSTR>& qServices, SAFEARR
 		if (FAILED(hr))
 			break;
 
-		hr = ptrContent->Init(qServices.front());
+		hr = ptrContent->InitService(qServices.front());
 		if (FAILED(hr))
 			break;
 		qServices.pop();

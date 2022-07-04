@@ -58,20 +58,20 @@ END_COM_MAP()
 	}
 
 public:
-	 STDMETHOD(Init(BSTR));
-	 STDMETHOD(GetName(BSTR*));
-	 STDMETHOD(GetFullName(BSTR*));
-	 STDMETHOD(GetDescription(BSTR*));
-	 STDMETHOD(GetStatus(EServiceStatus*));
-	 STDMETHOD(GetType(EServiceType*));
-	 STDMETHOD(CanPauseContinue(boolean*));
-	 STDMETHOD(CanStop(boolean*));
-	 STDMETHOD(WaitForStatus(EServiceStatus, ULONG, boolean*));
-	 STDMETHOD(Refresh());
-	 STDMETHOD(Start(boolean*));
-	 STDMETHOD(Stop(boolean*));
-	 STDMETHOD(Pause(boolean*));
-	 STDMETHOD(Continue(boolean*));
+	 STDMETHOD(InitService(BSTR));
+	 STDMETHOD(GetServiceName(BSTR*));
+	 STDMETHOD(GetServiceFullName(BSTR*));
+	 STDMETHOD(GetServiceDescription(BSTR*));
+	 STDMETHOD(GetServiceStatus(EServiceStatus*));
+	 STDMETHOD(GetServiceType(EServiceType*));
+	 STDMETHOD(CanServicePauseContinue(boolean*));
+	 STDMETHOD(CanServiceStop(boolean*));
+	 STDMETHOD(WaitForServiceStatus(EServiceStatus, ULONG, boolean*));
+	 STDMETHOD(ServiceRefresh());
+	 STDMETHOD(ServiceStart(boolean*));
+	 STDMETHOD(ServiceStop(boolean*));
+	 STDMETHOD(ServicePause(boolean*));
+	 STDMETHOD(ServiceContinue(boolean*));
 private:
 	HRESULT ChangeStatus(DWORD const, DWORD const , boolean*);
 	HRESULT UpdateStatus();

@@ -4,7 +4,7 @@
 #include "ServiceManager.h"
 
 // CServicesManager
-STDMETHODIMP CServiceManager::Init(BSTR bstrName)
+STDMETHODIMP CServiceManager::InitService(BSTR bstrName)
 {
 	if (!bstrName)
 		return E_POINTER;
@@ -47,7 +47,7 @@ STDMETHODIMP CServiceManager::Init(BSTR bstrName)
 	return hrReturn;
 }
 
-STDMETHODIMP CServiceManager::GetName(BSTR* pResult) 
+STDMETHODIMP CServiceManager::GetServiceName(BSTR* pResult)
 {
 	HRESULT hr = CheckInit((void*)pResult);
 	if (SUCCEEDED(hr))
@@ -55,7 +55,7 @@ STDMETHODIMP CServiceManager::GetName(BSTR* pResult)
 	return S_OK;
 }
 
-STDMETHODIMP CServiceManager::GetFullName(BSTR* pResult)
+STDMETHODIMP CServiceManager::GetServiceFullName(BSTR* pResult)
 {
 	HRESULT hr = CheckInit((void*)pResult);
 	if (SUCCEEDED(hr))
@@ -63,7 +63,7 @@ STDMETHODIMP CServiceManager::GetFullName(BSTR* pResult)
 	return S_OK;
 }
 
-STDMETHODIMP CServiceManager::GetDescription(BSTR* pResult)
+STDMETHODIMP CServiceManager::GetServiceDescription(BSTR* pResult)
 {
 	HRESULT hr = CheckInit((void*)pResult);
 	if (SUCCEEDED(hr))
@@ -71,15 +71,19 @@ STDMETHODIMP CServiceManager::GetDescription(BSTR* pResult)
 	return hr;
 }
 
-STDMETHODIMP CServiceManager::GetStatus(EServiceStatus* pResult)
+STDMETHODIMP CServiceManager::GetServiceStatus(EServiceStatus* pResult)
 {
 	HRESULT hr = CheckInit((void*)pResult);
-	if (SUCCEEDED(hr))
-		*pResult = m_eStatus;
+	if (FAILED(hr))
+		return hr;
+	hr = UpdateStatus();
+	if (FAILED(hr))
+		return hr;
+	*pResult = m_eStatus;
 	return hr;
 }
 
-STDMETHODIMP CServiceManager::GetType(EServiceType* pResult)
+STDMETHODIMP CServiceManager::GetServiceType(EServiceType* pResult)
 {
 	HRESULT hr = CheckInit((void*)pResult);
 	if (SUCCEEDED(hr))
@@ -87,23 +91,31 @@ STDMETHODIMP CServiceManager::GetType(EServiceType* pResult)
 	return hr;
 }
 
-STDMETHODIMP CServiceManager::CanPauseContinue(boolean* pResult)
+STDMETHODIMP CServiceManager::CanServicePauseContinue(boolean* pResult)
 {
 	HRESULT hr = CheckInit((void**)pResult);
-	if (SUCCEEDED(hr))
-		*pResult = m_bPauseContinue;
+	if (FAILED(hr))
+		return hr;
+	hr = UpdateStatus();
+	if (FAILED(hr))
+		return hr;
+	*pResult = m_bPauseContinue;
 	return hr;
 }
 
-STDMETHODIMP CServiceManager::CanStop(boolean* pResult)
+STDMETHODIMP CServiceManager::CanServiceStop(boolean* pResult)
 {
 	HRESULT hr = CheckInit((void*)pResult);
-	if (SUCCEEDED(hr))
-		*pResult = m_bStop;
+	if (FAILED(hr))
+		return hr;
+	hr = UpdateStatus();
+	if (FAILED(hr))
+		return hr;
+	*pResult = m_bStop;
 	return hr;
 }
 
-STDMETHODIMP CServiceManager::Start(boolean* pResult)
+STDMETHODIMP CServiceManager::ServiceStart(boolean* pResult)
 {
 	HRESULT hr = CheckInit(pResult);
 	if (FAILED(hr))
@@ -128,7 +140,7 @@ STDMETHODIMP CServiceManager::Start(boolean* pResult)
 	return S_OK;
 }
 
-STDMETHODIMP CServiceManager::Stop(boolean* pResult)
+STDMETHODIMP CServiceManager::ServiceStop(boolean* pResult)
 {
 	if (!m_bRunAsAdmin || !m_bStop)
 		return S_FALSE;
@@ -136,21 +148,21 @@ STDMETHODIMP CServiceManager::Stop(boolean* pResult)
 	return ChangeStatus(SERVICE_STOP, SERVICE_CONTROL_STOP, pResult);
 }
 
-STDMETHODIMP CServiceManager::Pause(boolean* pResult)
+STDMETHODIMP CServiceManager::ServicePause(boolean* pResult)
 {
 	if (!m_bRunAsAdmin || !m_bPauseContinue)
 		return S_FALSE;
 	return ChangeStatus(SERVICE_PAUSE_CONTINUE, SERVICE_CONTROL_PAUSE, pResult);
 }
 
-STDMETHODIMP CServiceManager::Continue(boolean* pResult)
+STDMETHODIMP CServiceManager::ServiceContinue(boolean* pResult)
 {
 	if (!m_bRunAsAdmin || !m_bPauseContinue)
 		return S_FALSE;
 	return ChangeStatus(SERVICE_PAUSE_CONTINUE, SERVICE_CONTROL_CONTINUE, pResult);
 }
 
-STDMETHODIMP CServiceManager::WaitForStatus(EServiceStatus eStatus, ULONG ulTime, boolean* pResult)
+STDMETHODIMP CServiceManager::WaitForServiceStatus(EServiceStatus eStatus, ULONG ulTime, boolean* pResult)
 {
 	HRESULT hr = CheckInit((void*)pResult);
 	*pResult = 0;
@@ -181,7 +193,7 @@ STDMETHODIMP CServiceManager::WaitForStatus(EServiceStatus eStatus, ULONG ulTime
 	return S_OK;
 }
 
-STDMETHODIMP CServiceManager::Refresh()
+STDMETHODIMP CServiceManager::ServiceRefresh()
 {
 	if (!m_bInit)
 		return E_UNEXPECTED;

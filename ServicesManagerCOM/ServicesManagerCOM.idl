@@ -64,20 +64,20 @@ library ServicesManagerCOMLib
 	]
 	interface IServiceManager : IDispatch
 	{
-		[id(0), helpstring("Initializes data of the service")] HRESULT Init([in] BSTR bstrName);
-		[id(1), helpstring("Returns a name the service")] HRESULT GetName([out, retval] BSTR* pResult);
-		[id(2), helpstring("Returns a display name the service")] HRESULT GetFullName([out, retval] BSTR * pResult);
-		[id(3), helpstring("Returns a description the service")] HRESULT GetDescription([out, retval] BSTR* pResult);
-		[id(4), helpstring("Returns a status the service")] HRESULT GetStatus([out, retval] EServiceStatus* pResult);
-		[id(5), helpstring("Returns a status the service")] HRESULT GetType([out, retval] EServiceType* pResult);
-		[id(6), helpstring("Returns boolean can the service be paused and continued")] HRESULT CanPauseContinue([out, retval] boolean* pResult);
-		[id(7), helpstring("Returns boolean can the service be stopped")] HRESULT CanStop([out, retval] boolean* pResult);
-		[id(9), helpstring("Waiting new status for the service")] HRESULT WaitForStatus([in] EServiceStatus, [in] ULONG, [out, retval] boolean* pResult);
-		[id(10), helpstring("Refresh a data of the service")] HRESULT Refresh();
-		[id(11), helpstring("Attempt to start the service")] HRESULT Start([out, retval] boolean* bResult);
-		[id(12), helpstring("Attempt to stop the service")] HRESULT Stop([out, retval] boolean* bResult);
-		[id(13), helpstring("Attempt to pause the service")] HRESULT Pause([out, retval] boolean* bResult);
-		[id(14), helpstring("Attempt to continue the service")] HRESULT Continue([out, retval] boolean* bResult);
+		[id(0), helpstring("Initializes data of the service")] HRESULT InitService([in] BSTR bstrName);
+		[id(1), helpstring("Returns a name the service")] HRESULT GetServiceName([out, retval] BSTR* pResult);
+		[id(2), helpstring("Returns a display name the service")] HRESULT GetServiceFullName([out, retval] BSTR * pResult);
+		[id(3), helpstring("Returns a description the service")] HRESULT GetServiceDescription([out, retval] BSTR* pResult);
+		[id(4), helpstring("Returns a status the service")] HRESULT GetServiceStatus([out, retval] EServiceStatus* pResult);
+		[id(5), helpstring("Returns a status the service")] HRESULT GetServiceType([out, retval] EServiceType* pResult);
+		[id(6), helpstring("Returns boolean can the service be paused and continued")] HRESULT CanServicePauseContinue([out, retval] boolean* pResult);
+		[id(7), helpstring("Returns boolean can the service be stopped")] HRESULT CanServiceStop([out, retval] boolean* pResult);
+		[id(8), helpstring("Waiting new status for the service")] HRESULT WaitForServiceStatus([in] EServiceStatus, [in] ULONG, [out, retval] boolean* pResult);
+		[id(9), helpstring("Refresh a data of the service")] HRESULT ServiceRefresh();
+		[id(10), helpstring("Attempt to start the service")] HRESULT ServiceStart([out, retval] boolean* bResult);
+		[id(11), helpstring("Attempt to stop the service")] HRESULT ServiceStop([out, retval] boolean* bResult);
+		[id(12), helpstring("Attempt to pause the service")] HRESULT ServicePause([out, retval] boolean* bResult);
+		[id(13), helpstring("Attempt to continue the service")] HRESULT ServiceContinue([out, retval] boolean* bResult);
 	};
 
 	[

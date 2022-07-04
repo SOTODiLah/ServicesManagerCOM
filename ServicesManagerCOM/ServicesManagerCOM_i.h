@@ -147,47 +147,47 @@ EXTERN_C const IID IID_IServiceManager;
     IServiceManager : public IDispatch
     {
     public:
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE Init( 
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE InitService( 
             /* [in] */ BSTR bstrName) = 0;
         
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetName( 
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetServiceName( 
             /* [retval][out] */ BSTR *pResult) = 0;
         
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetFullName( 
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetServiceFullName( 
             /* [retval][out] */ BSTR *pResult) = 0;
         
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetDescription( 
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetServiceDescription( 
             /* [retval][out] */ BSTR *pResult) = 0;
         
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetStatus( 
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetServiceStatus( 
             /* [retval][out] */ EServiceStatus *pResult) = 0;
         
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetType( 
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetServiceType( 
             /* [retval][out] */ EServiceType *pResult) = 0;
         
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE CanPauseContinue( 
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE CanServicePauseContinue( 
             /* [retval][out] */ boolean *pResult) = 0;
         
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE CanStop( 
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE CanServiceStop( 
             /* [retval][out] */ boolean *pResult) = 0;
         
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE WaitForStatus( 
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE WaitForServiceStatus( 
             /* [in] */ EServiceStatus __MIDL__IServiceManager0000,
             /* [in] */ ULONG __MIDL__IServiceManager0001,
             /* [retval][out] */ boolean *pResult) = 0;
         
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE Refresh( void) = 0;
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE ServiceRefresh( void) = 0;
         
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE Start( 
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE ServiceStart( 
             /* [retval][out] */ boolean *bResult) = 0;
         
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE Stop( 
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE ServiceStop( 
             /* [retval][out] */ boolean *bResult) = 0;
         
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE Pause( 
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE ServicePause( 
             /* [retval][out] */ boolean *bResult) = 0;
         
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE Continue( 
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE ServiceContinue( 
             /* [retval][out] */ boolean *bResult) = 0;
         
     };
@@ -248,60 +248,60 @@ EXTERN_C const IID IID_IServiceManager;
             /* [annotation][out] */ 
             _Out_opt_  UINT *puArgErr);
         
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *Init )( 
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *InitService )( 
             IServiceManager * This,
             /* [in] */ BSTR bstrName);
         
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *GetName )( 
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *GetServiceName )( 
             IServiceManager * This,
             /* [retval][out] */ BSTR *pResult);
         
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *GetFullName )( 
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *GetServiceFullName )( 
             IServiceManager * This,
             /* [retval][out] */ BSTR *pResult);
         
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *GetDescription )( 
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *GetServiceDescription )( 
             IServiceManager * This,
             /* [retval][out] */ BSTR *pResult);
         
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *GetStatus )( 
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *GetServiceStatus )( 
             IServiceManager * This,
             /* [retval][out] */ EServiceStatus *pResult);
         
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *GetType )( 
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *GetServiceType )( 
             IServiceManager * This,
             /* [retval][out] */ EServiceType *pResult);
         
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *CanPauseContinue )( 
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *CanServicePauseContinue )( 
             IServiceManager * This,
             /* [retval][out] */ boolean *pResult);
         
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *CanStop )( 
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *CanServiceStop )( 
             IServiceManager * This,
             /* [retval][out] */ boolean *pResult);
         
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *WaitForStatus )( 
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *WaitForServiceStatus )( 
             IServiceManager * This,
             /* [in] */ EServiceStatus __MIDL__IServiceManager0000,
             /* [in] */ ULONG __MIDL__IServiceManager0001,
             /* [retval][out] */ boolean *pResult);
         
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *Refresh )( 
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *ServiceRefresh )( 
             IServiceManager * This);
         
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *Start )( 
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *ServiceStart )( 
             IServiceManager * This,
             /* [retval][out] */ boolean *bResult);
         
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *Stop )( 
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *ServiceStop )( 
             IServiceManager * This,
             /* [retval][out] */ boolean *bResult);
         
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *Pause )( 
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *ServicePause )( 
             IServiceManager * This,
             /* [retval][out] */ boolean *bResult);
         
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *Continue )( 
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *ServiceContinue )( 
             IServiceManager * This,
             /* [retval][out] */ boolean *bResult);
         
@@ -341,47 +341,47 @@ EXTERN_C const IID IID_IServiceManager;
     ( (This)->lpVtbl -> Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr) ) 
 
 
-#define IServiceManager_Init(This,bstrName)	\
-    ( (This)->lpVtbl -> Init(This,bstrName) ) 
+#define IServiceManager_InitService(This,bstrName)	\
+    ( (This)->lpVtbl -> InitService(This,bstrName) ) 
 
-#define IServiceManager_GetName(This,pResult)	\
-    ( (This)->lpVtbl -> GetName(This,pResult) ) 
+#define IServiceManager_GetServiceName(This,pResult)	\
+    ( (This)->lpVtbl -> GetServiceName(This,pResult) ) 
 
-#define IServiceManager_GetFullName(This,pResult)	\
-    ( (This)->lpVtbl -> GetFullName(This,pResult) ) 
+#define IServiceManager_GetServiceFullName(This,pResult)	\
+    ( (This)->lpVtbl -> GetServiceFullName(This,pResult) ) 
 
-#define IServiceManager_GetDescription(This,pResult)	\
-    ( (This)->lpVtbl -> GetDescription(This,pResult) ) 
+#define IServiceManager_GetServiceDescription(This,pResult)	\
+    ( (This)->lpVtbl -> GetServiceDescription(This,pResult) ) 
 
-#define IServiceManager_GetStatus(This,pResult)	\
-    ( (This)->lpVtbl -> GetStatus(This,pResult) ) 
+#define IServiceManager_GetServiceStatus(This,pResult)	\
+    ( (This)->lpVtbl -> GetServiceStatus(This,pResult) ) 
 
-#define IServiceManager_GetType(This,pResult)	\
-    ( (This)->lpVtbl -> GetType(This,pResult) ) 
+#define IServiceManager_GetServiceType(This,pResult)	\
+    ( (This)->lpVtbl -> GetServiceType(This,pResult) ) 
 
-#define IServiceManager_CanPauseContinue(This,pResult)	\
-    ( (This)->lpVtbl -> CanPauseContinue(This,pResult) ) 
+#define IServiceManager_CanServicePauseContinue(This,pResult)	\
+    ( (This)->lpVtbl -> CanServicePauseContinue(This,pResult) ) 
 
-#define IServiceManager_CanStop(This,pResult)	\
-    ( (This)->lpVtbl -> CanStop(This,pResult) ) 
+#define IServiceManager_CanServiceStop(This,pResult)	\
+    ( (This)->lpVtbl -> CanServiceStop(This,pResult) ) 
 
-#define IServiceManager_WaitForStatus(This,__MIDL__IServiceManager0000,__MIDL__IServiceManager0001,pResult)	\
-    ( (This)->lpVtbl -> WaitForStatus(This,__MIDL__IServiceManager0000,__MIDL__IServiceManager0001,pResult) ) 
+#define IServiceManager_WaitForServiceStatus(This,__MIDL__IServiceManager0000,__MIDL__IServiceManager0001,pResult)	\
+    ( (This)->lpVtbl -> WaitForServiceStatus(This,__MIDL__IServiceManager0000,__MIDL__IServiceManager0001,pResult) ) 
 
-#define IServiceManager_Refresh(This)	\
-    ( (This)->lpVtbl -> Refresh(This) ) 
+#define IServiceManager_ServiceRefresh(This)	\
+    ( (This)->lpVtbl -> ServiceRefresh(This) ) 
 
-#define IServiceManager_Start(This,bResult)	\
-    ( (This)->lpVtbl -> Start(This,bResult) ) 
+#define IServiceManager_ServiceStart(This,bResult)	\
+    ( (This)->lpVtbl -> ServiceStart(This,bResult) ) 
 
-#define IServiceManager_Stop(This,bResult)	\
-    ( (This)->lpVtbl -> Stop(This,bResult) ) 
+#define IServiceManager_ServiceStop(This,bResult)	\
+    ( (This)->lpVtbl -> ServiceStop(This,bResult) ) 
 
-#define IServiceManager_Pause(This,bResult)	\
-    ( (This)->lpVtbl -> Pause(This,bResult) ) 
+#define IServiceManager_ServicePause(This,bResult)	\
+    ( (This)->lpVtbl -> ServicePause(This,bResult) ) 
 
-#define IServiceManager_Continue(This,bResult)	\
-    ( (This)->lpVtbl -> Continue(This,bResult) ) 
+#define IServiceManager_ServiceContinue(This,bResult)	\
+    ( (This)->lpVtbl -> ServiceContinue(This,bResult) ) 
 
 #endif /* COBJMACROS */
 
