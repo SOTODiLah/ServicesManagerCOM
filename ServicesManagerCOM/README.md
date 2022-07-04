@@ -4,5 +4,4 @@
 
 ## Файлы проекта
 
-### Описание интерфейсов COM-object'ов
-[ServicesManagerCOM.idl](https://github.com/SOTODiLah/ServicesManagerCOM/blob/master/ServicesManagerCOM/ServicesManagerCOM.idl)
+* [ServicesManagerCOM.idl](https://github.com/SOTODiLah/ServicesManagerCOM/blob/master/ServicesManagerCOM/ServicesManagerCOM.idl) - описание интерфейсов COM-object'ов
