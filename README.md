@@ -19,9 +19,5 @@ C++ COM working with services and project C# Forms using this COM
 
 Подключение DLL осуществляется через командную строку.<br>
 ```bash
-Options:
-  -h,--help                   Вывод этого справочного сообщения.
-  -i,--input TEXT             Путь до входного файла.
-  -o,--output TEXT            Путь до выходного файла.
-  -s,--sizeBuffer UINT        Размер буфера (блока файла).
+regsvr32 /i ServicesManagerCOM.dll
 ````
