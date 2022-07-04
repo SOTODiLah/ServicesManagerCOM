@@ -14,6 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forms_COM", "Forms_COM\Form
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BC45F545-046C-4055-BE2E-B40A25CB4953}"
 	ProjectSection(SolutionItems) = preProject
+		Example_PythonClientCOM.jpg = Example_PythonClientCOM.jpg
 		Releases\Forms_COM.exe = Releases\Forms_COM.exe
 		Releases\ServicesManagerCOM.dll = Releases\ServicesManagerCOM.dll
 	EndProjectSection
