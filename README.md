@@ -10,14 +10,14 @@ C++ COM working with services and project C# Forms using this COM
 
 Файл [ServicesManagerCOM.idl](https://github.com/SOTODiLah/ServicesManagerCOM/blob/master/ServicesManagerCOM/ServicesManagerCOM.idl) описывает языком интерфейсов (MIDL) структуры классов и перечислений использующихся в COM-object.
 
-*[more](https://github.com/SOTODiLah/ServicesManagerCOM/blob/master/ServicesManagerCOM/README.md)*
+  *[MORE](https://github.com/SOTODiLah/ServicesManagerCOM/blob/master/ServicesManagerCOM/README.md)*
 
 ## Project Form_COM
 
 Проект Windows Forms C#. Реализован базовый UI для демонстрации работы COM-object.<br>
 Используется ранее связывание. Описание интерфейсов в C# [InterfaceCOM.cs](https://github.com/SOTODiLah/ServicesManagerCOM/blob/master/Forms_COM/Forms_COM/InterfaceCOM.cs)
 
-*[more](https://github.com/SOTODiLah/ServicesManagerCOM/blob/master/Forms_COM/Forms_COM/README.md)*
+  *[MORE](https://github.com/SOTODiLah/ServicesManagerCOM/blob/master/Forms_COM/Forms_COM/README.md)*
 
 ## Использование COM DLL
 
