@@ -1,7 +1,7 @@
 # ServicesManagerCOM
 C++ COM working with services and project C# Forms using this COM
 
-## Project ServicesManagerCOM
+## Project ServicesManagerCOM ([README](https://github.com/SOTODiLah/ServicesManagerCOM/blob/master/ServicesManagerCOM/README.md))
 
 Проект ATL. Содержит два COM-object имеют двойной интерфейс, что позволяет использовать ранее и позднее связывание.
 
@@ -10,7 +10,7 @@ C++ COM working with services and project C# Forms using this COM
 
 Файл [ServicesManagerCOM.idl](https://github.com/SOTODiLah/ServicesManagerCOM/blob/master/ServicesManagerCOM/ServicesManagerCOM.idl) описывает языком интерфейсов (MIDL) структуры классов и перечислений использующихся в COM-object.
 
-## Project Form_COM
+## Project Form_COM ([README](https://github.com/SOTODiLah/ServicesManagerCOM/blob/master/Forms_COM/Forms_COM/README.md))
 
 Проект Windows Forms C#. Реализован базовый UI для демонстрации работы COM-object.<br>
 Используется ранее связывание. Описание интерфейсов в C# [InterfaceCOM.cs](https://github.com/SOTODiLah/ServicesManagerCOM/blob/master/Forms_COM/Forms_COM/InterfaceCOM.cs)
