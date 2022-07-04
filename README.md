@@ -3,8 +3,13 @@ C++ COM working with services and project C# Forms using this COM
 
 ## Project ServicesManagerCOM
 
-Проект ATL. Созданы два COM-object (СServiceManager и CFactoryServiceManagers), имеют двойной интерфейс, что позволяет использовать ранее и позднее связывание.
-*Пример
+Проект ATL. Содержит два COM-object (СServiceManager и CFactoryServiceManagers), имеют двойной интерфейс, что позволяет использовать ранее и позднее связывание. 
+Файл .idl описывает языком интерфейсов (MIDL) структуры классов и перечислений использующихся в COM-object.
+
+## Project Form_COM
+
+Проект Windows Forms C#. Реализован базовый UI для демонстрации работы COM-object. Используется ранее связывание, пример описание интерфейсов в "Forms_COM/Forms_COM/InterfaceCOM.cs"
+
 
 ## Launch
 
