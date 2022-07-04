@@ -8,7 +8,7 @@ C++ COM working with services and project C# Forms using this COM
 * ServiceManager
 * FactoryServiceManagers 
 
-Файл .idl описывает языком интерфейсов (MIDL) структуры классов и перечислений использующихся в COM-object.
+Файл [ServicesManagerCOM.idl] (https://github.com/SOTODiLah/ServicesManagerCOM/blob/master/ServicesManagerCOM/ServicesManagerCOM.idl) описывает языком интерфейсов (MIDL) структуры классов и перечислений использующихся в COM-object.
 
 ## Project Form_COM
 
@@ -18,7 +18,6 @@ C++ COM working with services and project C# Forms using this COM
 ```bash
 Forms_COM/Forms_COM/InterfaceCOM.cs
 ````
-
 
 ## Launch
 
